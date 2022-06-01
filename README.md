@@ -49,9 +49,10 @@ If you want to speed up the build and want to specify some options:
 
 ```bash
 docker build \
-    --build-arg=http-proxy=http://10.11.12.90:8001 \
-    --build-arg=http-proxy=https://10.11.12.90:8001 \
+    --build-arg=http_proxy=http://10.11.12.90:8001 \
+    --build-arg=https_proxy=https://10.11.12.90:8001 \
     --build-arg=MILVUS_GIT_REPO=https://gitee.com/milvus-io/milvus.git \
+    --build-arg=GOPROXY_URL=https://goproxy.cn \
     -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f docker/builder/Dockerfile .
 ```
 
@@ -59,8 +60,9 @@ If you encounter a situation where you cannot download dependencies because the 
 
 ```bash
 docker build \
-    --build-arg=http-proxy=http://10.11.12.90:8001 \
-    --build-arg=http-proxy=https://10.11.12.90:8001 \
+    --build-arg=http_proxy=http://10.11.12.90:8001 \
+    --build-arg=https_proxy=https://10.11.12.90:8001 \
     --build-arg=MILVUS_GIT_REPO=https://gitee.com/milvus-io/milvus.git \
+    --build-arg=GOPROXY_URL=https://goproxy.cn \
     -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f Dockerfile.builder .
 ```

@@ -53,4 +53,4 @@ RUN if [ "$MILVUS_GIT_CLONE_DEPTH" = "" ];then \
     else \
         bash -c "git clone ${MILVUS_GIT_REPO} --branch=${MILVUS_GIT_BRANCH} --depth=${MILVUS_GIT_CLONE_DEPTH}"; \
     fi
-
+RUN cd milvus && make milvus
