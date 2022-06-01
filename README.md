@@ -18,7 +18,7 @@ docker pull ...
 
 <table>
 <thead>
-<tr><th>Docker Image Name</th><th>DockerHub</th><th>Ubuntu</th><th>OpenBLAS</th><th>Golang</th></tr>
+<tr><th>Docker Image Name</th><th>Type</th><th>Ubuntu</th><th>OpenBLAS</th><th>Golang</th></tr>
 </thead><tbody>
 <tr><td>soulteary/milvus:base-ubuntu20.04-openblas0.3.9</td><td>Base</td><td>20.04</td><td>0.3.9</td><td>-</td></tr>
 <tr><td>soulteary/milvus:base-ubuntu20.04-openblas0.3.20</td><td>Base</td><td>20.04</td><td>0.3.20</td><td>-</td></tr>
