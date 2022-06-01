@@ -1,4 +1,4 @@
-FROM soulteary/milvus-builder:ubuntu22.04-openblas0.3.9 AS builder
+FROM soulteary/milvus:builder-ubuntu22.04-openblas0.3.9 AS builder
 
 FROM ubuntu:22.04
 LABEL maintainer=soulteary@gmail.com
