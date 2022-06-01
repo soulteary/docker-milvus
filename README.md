@@ -28,7 +28,7 @@ docker build --build-arg=USE_MIRROR=true --build-arg=OPENBLAS=0.3.9 -t soulteary
 Install deps and download milvus latest sources from github:
 
 ```bash
-docker build -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f Dockerfile.app .
+docker build -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f Dockerfile.builder .
 ```
 
 extra support build args:
@@ -42,5 +42,15 @@ extra support build args:
 If you want to speed up the build and want to specify some options:
 
 ```bash
-docker build --build-arg=MILVUS_GIT_REPO=https://gitee.com/milvus-io/milvus.git -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f Dockerfile.app .
+docker build --build-arg=http-proxy=http://10.11.12.90:8001 --build-arg=http-proxy=https://10.11.12.90:8001 --build-arg=MILVUS_GIT_REPO=https://gitee.com/milvus-io/milvus.git -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f Dockerfile.builder .
+```
+
+If you encounter a situation where you cannot download dependencies because the network is not smooth, you can solve the problem by setting a proxy network:
+
+```bash
+docker build \
+    --build-arg=http-proxy=http://10.11.12.90:8001 \
+    --build-arg=http-proxy=https://10.11.12.90:8001 \
+    --build-arg=MILVUS_GIT_REPO=https://gitee.com/milvus-io/milvus.git \
+    -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f Dockerfile.builder .
 ```
