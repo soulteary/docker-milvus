@@ -8,8 +8,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # deps
 RUN apt-get update && \
-    # common utils
-    apt-get install -y --no-install-recommends wget ca-certificates gnupg2 && \
+    # common utils for download sources tarball/zipball
+    apt-get install -y --no-install-recommends curl wget ca-certificates gnupg2 && \
     # openblas deps
     apt-get install -y --no-install-recommends g++ gcc gfortran git make && \
     # cleanup
