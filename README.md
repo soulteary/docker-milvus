@@ -1,5 +1,7 @@
 # Docker Milvus
 
+![](https://img.shields.io/badge/Ubuntu-20.04-orange) ![](https://img.shields.io/badge/Ubuntu-22.04-orange) ![](https://img.shields.io/badge/OpenBLAS-0.3.9-red) ![](https://img.shields.io/badge/OpenBLAS-0.3.20-red) ![](https://img.shields.io/badge/Docker-latest-blue) 
+
 <img src="images/logo.jpg" width="120"/>
 
 Reliable, highly scalable Milvus docker images.
