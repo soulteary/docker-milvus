@@ -40,4 +40,4 @@ jobs:
           build-args: OPENBLAS=0.3.20
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: soulteary/milvus-base:ubuntu20.04-openblas0.3.20
+          tags: soulteary/milvus-base:ubuntu22.04-openblas0.3.20
