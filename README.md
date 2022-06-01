@@ -1,8 +1,8 @@
 # Docker Milvus
 
-## Build by yourself
+## 1. Build base image
 
-1. Build a base images, contains openblas 3.9+
+Build a base images, contains openblas 3.9+
 
 ```bash
 docker build -t soulteary/milvus-base:ubuntu20.04-openblas3.9 -f docker/base/Dockerfile .
@@ -12,9 +12,9 @@ extra support build args:
 
 ```bash
 # use tsinghua mirror
---build-arg=USE_MIRROR=true
+USE_MIRROR=true
 # specify a version
---build-arg=OPENBLAS=0.3.9
+OPENBLAS=0.3.9
 ```
 
 If you want to speed up the build and want to specify the version:
@@ -22,8 +22,9 @@ If you want to speed up the build and want to specify the version:
 ```bash
 docker build --build-arg=USE_MIRROR=true --build-arg=OPENBLAS=0.3.9 -t soulteary/milvus-base:ubuntu20.04-openblas3.9 -f docker/base/Dockerfile .
 ```
+## 2. Build Milvus tools image
 
-2. Build a milvus tools image, contains c++/golang develpment tools to build milvus app.
+Build a milvus tools image, contains c++/golang develpment tools to build milvus app.
 
 Install deps and download milvus latest sources from github:
 
@@ -34,9 +35,14 @@ docker build -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f docker/build
 extra support build args:
 
 ```bash
---build-arg=MILVUS_GIT_REPO=https://github.com/milvus-io/milvus.git
---build-arg=MILVUS_GIT_BRANCH=master
---build-arg=MILVUS_GIT_CLONE_DEPTH=
+# Specify the source of the software source code
+MILVUS_GIT_REPO=https://github.com/milvus-io/milvus.git
+MILVUS_GIT_BRANCH=master
+MILVUS_GIT_CLONE_DEPTH=
+# Custom go version, binary download mirror, package download mirror
+GOLANG_VERSION=1.16.9
+GO_BINARY_BASE_URL=https://golang.google.cn/dl/
+GOPROXY_URL=https://proxy.golang.org
 ```
 
 If you want to speed up the build and want to specify some options:
