@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 LABEL maintainer=soulteary@gmail.com
 
-ARG USE_MIRROR=1
+ARG USE_MIRROR=false
 RUN if [ "$USE_MIRROR" = true ] ; then sed -i -e "s/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/" /etc/apt/sources.list && sed -i -e "s/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/" /etc/apt/sources.list; fi
 
 ENV DEBIAN_FRONTEND noninteractive
