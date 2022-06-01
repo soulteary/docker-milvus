@@ -8,6 +8,8 @@ Reliable, highly scalable Milvus docker images.
 
 ## [WIP] Docker prebuilt images
 
+**Mirror will be uploaded tomorrow**
+
 I have built some images so far, you can use `docker pull` to get these images directly.
 
 ```bash
@@ -37,10 +39,14 @@ docker build -t soulteary/milvus-builder:ubuntu20.04-openblas0.3.9 -f docker/bui
 
 By default, we will get the latest Milvus code from GitHub, you can get the code from other data sources by adjusting the build parameters. [Advanced usage](./docs/02.build-builder.md)
 
-### [WIP] 3. Build a tiny Milvus Application image
+### 3. Build a tiny Milvus Application image
 
-TBD
+In the previous build, we have solved the Milvus and related software dependencies that can run normally, so we only need a simple command to generate an image that is easy to transfer.
+
+```bash
+docker build -t soulteary/milvus:ubuntu20.04-openblas0.3.9 -f docker/app/Dockerfile .
+```
 
 ### [WIP] 4. Build a Milvus Application image with debugger
 
-TBD
+TBD, how to build an image that supports remote debugging.
