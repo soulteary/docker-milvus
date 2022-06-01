@@ -2,26 +2,14 @@
 
 ## 1. Build base image
 
-Build a base images, contains openblas 3.9+
+Before building milvus, we first need to build a base image that includes openblas (3.9+)
 
 ```bash
 docker build -t soulteary/milvus-base:ubuntu20.04-openblas3.9 -f docker/base/Dockerfile .
 ```
 
-extra support build args:
+[Advanced usage](./docs/01.build-openblas.md)
 
-```bash
-# use tsinghua mirror
-USE_MIRROR=true
-# specify a version
-OPENBLAS=0.3.9
-```
-
-If you want to speed up the build and want to specify the version:
-
-```bash
-docker build --build-arg=USE_MIRROR=true --build-arg=OPENBLAS=0.3.9 -t soulteary/milvus-base:ubuntu20.04-openblas3.9 -f docker/base/Dockerfile .
-```
 ## 2. Build Milvus tools image
 
 Build a milvus tools image, contains c++/golang develpment tools to build milvus app.
@@ -49,8 +37,6 @@ If you want to speed up the build and want to specify some options:
 
 ```bash
 docker build \
-    --build-arg=http_proxy=http://10.11.12.90:8001 \
-    --build-arg=https_proxy=https://10.11.12.90:8001 \
     --build-arg=MILVUS_GIT_REPO=https://gitee.com/milvus-io/milvus.git \
     --build-arg=GOPROXY_URL=https://goproxy.cn \
     -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f docker/builder/Dockerfile .
@@ -61,8 +47,8 @@ If you encounter a situation where you cannot download dependencies because the 
 ```bash
 docker build \
     --build-arg=http_proxy=http://10.11.12.90:8001 \
-    --build-arg=https_proxy=https://10.11.12.90:8001 \
+    --build-arg=https_proxy=http://10.11.12.90:8001 \
     --build-arg=MILVUS_GIT_REPO=https://gitee.com/milvus-io/milvus.git \
     --build-arg=GOPROXY_URL=https://goproxy.cn \
-    -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f Dockerfile.builder .
+    -t soulteary/milvus-builder:ubuntu20.04-openblas3.9 -f docker/builder/Dockerfile .
 ```

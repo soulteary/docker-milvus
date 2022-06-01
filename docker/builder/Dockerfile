@@ -21,8 +21,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # use gvm improved version, can support golang fast installation for x86 / arm platform
 # maybe the milvus community can fork a version to provide a more stable service
 # ref: https://soulteary.com/2021/12/15/golang-multi-version-management.html / https://soulteary.com/2022/05/12/better-golang-usage-on-m1-mac.html
-RUN apt install -y bison && \
-    curl -sSL https://github.com/soulteary/gvm/raw/master/binscripts/gvm-installer | bash
+RUN curl -sSL https://github.com/soulteary/gvm/raw/master/binscripts/gvm-installer | bash
 ARG GO_BINARY_BASE_URL=https://golang.google.cn/dl/
 ENV GO_BINARY_BASE_URL=${GO_BINARY_BASE_URL}
 ENV GVM_ROOT=/root/.gvm
