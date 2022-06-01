@@ -16,6 +16,24 @@ I have built some images so far, you can use `docker pull` to get these images d
 docker pull ...
 ```
 
+<table>
+<thead>
+<tr><th>Docker Image Name</th><th>DockerHub</th><th>Ubuntu</th><th>OpenBLAS</th><th>Golang</th></tr>
+</thead><tbody>
+<tr><td>soulteary/milvus:base-ubuntu20.04-openblas0.3.9</td><td>Base</td><td>20.04</td><td>0.3.9</td><td>-</td></tr>
+<tr><td>soulteary/milvus:base-ubuntu20.04-openblas0.3.20</td><td>Base</td><td>20.04</td><td>0.3.20</td><td>-</td></tr>
+<tr><td>soulteary/milvus:base-ubuntu22.04-openblas0.3.9</td><td>Base</td><td>22.04</td><td>0.3.9</td><td>-</td></tr>
+<tr><td>soulteary/milvus:base-ubuntu22.04-openblas0.3.20</td><td>Base</td><td>22.04</td><td>0.3.20</td><td>-</td></tr>
+<tr><td>soulteary/milvus:builder-ubuntu20.04-openblas0.3.9-golang1.16.9</td><td>builder</td><td>20.04</td><td>0.3.9</td><td>1.16.9</td></tr>
+<tr><td>soulteary/milvus:builder-ubuntu20.04-openblas0.3.20-golang1.16.9</td><td>builder</td><td>20.04</td><td>0.3.20</td><td>1.16.9</td></tr>
+<tr><td>soulteary/milvus:builder-ubuntu22.04-openblas0.3.9-golang1.16.9</td><td>builder</td><td>22.04</td><td>0.3.9</td><td>1.16.9</td></tr>
+<tr><td>soulteary/milvus:builder-ubuntu22.04-openblas0.3.20-golang1.16.9</td><td>builder</td><td>22.04</td><td>0.3.20</td><td>1.16.9</td></tr>
+<tr><td>soulteary/milvus:ubuntu20.04-openblas0.3.9-golang1.16.9</td><td>app</td><td>20.04</td><td>0.3.9</td><td>1.16.9</td></tr>
+<tr><td>soulteary/milvus:ubuntu20.04-openblas0.3.20-golang1.16.9</td><td>app</td><td>20.04</td><td>0.3.20</td><td>1.16.9</td></tr>
+<tr><td>soulteary/milvus:ubuntu22.04-openblas0.3.9-golang1.16.9</td><td>app</td><td>22.04</td><td>0.3.9</td><td>1.16.9</td></tr>
+<tr><td>soulteary/milvus:ubuntu22.04-openblas0.3.20-golang1.16.9</td><td>app</td><td>22.04</td><td>0.3.20</td><td>1.16.9</td></tr>
+</tbody></table>
+
 ## How to build
 
 If you need to build locally, you can refer to the following steps.
