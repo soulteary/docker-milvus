@@ -1,5 +1,7 @@
 # Docker Milvus
 
+<img src="images/logo.jpg" width="120"/>
+
 Reliable, highly scalable Milvus docker images.
 
 ## [WIP] Docker prebuilt images
