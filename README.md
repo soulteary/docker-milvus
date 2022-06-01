@@ -50,3 +50,13 @@ docker build -t soulteary/milvus:ubuntu20.04-openblas0.3.9 -f docker/app/Dockerf
 ### [WIP] 4. Build a Milvus Application image with debugger
 
 TBD, how to build an image that supports remote debugging.
+
+
+## PLAN
+
+- [ ] Complete WIP content.
+- [ ] Try privatized Action Runner for efficient automated builds.
+- [ ] Add TARBALL source code build method.
+- [ ] Add an environment that is convenient for golang developers to use.
+- [ ] Improve the build of debug images
+- [ ] Build Milvus images **in batches**, use openblas 0.3.9-0.3.20, ubuntu 20.04-22.04, golang 1.16-1.18 to build
