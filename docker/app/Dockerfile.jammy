@@ -12,10 +12,12 @@ RUN apt-get update && \
     apt-get remove --purge -y && \
     rm -rf /var/lib/apt/lists/*
 
+# copy openblas dependencies from base image
 COPY --from=builder /usr/lib/libopenblas-r0.3.9.so /usr/lib/
 RUN ln -s /usr/lib/libopenblas-r0.3.9.so /usr/lib/libopenblas.so.0 && \
     ln -s /usr/lib/libopenblas.so.0 /usr/lib/libopenblas.so
 
+# get milvus build results and dependencies from the milvus tool image
 COPY --from=builder /milvus/bin/ /milvus/bin/
 COPY --from=builder /milvus/configs/*.yaml /milvus/configs/
 COPY --from=builder /milvus/internal/core/output/lib/libmilvus_indexbuilder.so /milvus/lib/
@@ -25,10 +27,11 @@ COPY --from=builder /milvus/internal/core/output/lib/libmilvus_index.so /milvus/
 COPY --from=builder /milvus/internal/core/output/lib/libknowhere.so /milvus/lib/
 COPY --from=builder /milvus/internal/core/output/lib/libmarisa.so.0 /milvus/lib/
 
+# set environment variables to ensure that the program can run normally
 ENV PATH=/milvus/bin:$PATH
 ENV LD_LIBRARY_PATH=/milvus/lib:$LD_LIBRARY_PATH:/usr/lib
 
-# Add Tini
+# use tini to avoid zombie processes
 ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /tini
 RUN chmod +x /tini
 ENTRYPOINT ["/tini", "--"]
