@@ -42,20 +42,22 @@ ENV PATH="$GOPATH/bin:$PATH"
 ARG GOPROXY_URL=https://proxy.golang.org
 ENV GOPROXY="${GOPROXY_URL},direct"
 
+RUN source /root/.gvm/scripts/gvm
+
 # download milvus source from github
 # allow user specify a milvus git repository, branch, clone depth
-ARG MILVUS_GIT_REPO=https://github.com/milvus-io/milvus.git
-ENV MILVUS_GIT_REPO=${MILVUS_GIT_REPO}
-ARG MILVUS_GIT_BRANCH=master
-ENV MILVUS_GIT_BRANCH=${MILVUS_GIT_BRANCH}
-ARG MILVUS_GIT_CLONE_DEPTH=
-ENV MILVUS_GIT_CLONE_DEPTH=${MILVUS_GIT_CLONE_DEPTH}
-RUN if [ "$MILVUS_GIT_CLONE_DEPTH" = "" ];then \
-        bash -c "git clone ${MILVUS_GIT_REPO} --branch=${MILVUS_GIT_BRANCH}";\
-    else \
-        bash -c "git clone ${MILVUS_GIT_REPO} --branch=${MILVUS_GIT_BRANCH} --depth=${MILVUS_GIT_CLONE_DEPTH}"; \
-    fi
+# ARG MILVUS_GIT_REPO=https://github.com/milvus-io/milvus.git
+# ENV MILVUS_GIT_REPO=${MILVUS_GIT_REPO}
+# ARG MILVUS_GIT_BRANCH=master
+# ENV MILVUS_GIT_BRANCH=${MILVUS_GIT_BRANCH}
+# ARG MILVUS_GIT_CLONE_DEPTH=
+# ENV MILVUS_GIT_CLONE_DEPTH=${MILVUS_GIT_CLONE_DEPTH}
+# RUN if [ "$MILVUS_GIT_CLONE_DEPTH" = "" ];then \
+#         bash -c "git clone ${MILVUS_GIT_REPO} --branch=${MILVUS_GIT_BRANCH}";\
+#     else \
+#         bash -c "git clone ${MILVUS_GIT_REPO} --branch=${MILVUS_GIT_BRANCH} --depth=${MILVUS_GIT_CLONE_DEPTH}"; \
+#     fi
 
 
-WORKDIR /milvus
-RUN source /root/.gvm/scripts/gvm && make milvus
+# WORKDIR /milvus
+# RUN source /root/.gvm/scripts/gvm && make milvus
