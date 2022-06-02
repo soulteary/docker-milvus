@@ -27,6 +27,7 @@ pipeline {
       GIT_REPO="${github}"
    }
 
+   
     stages {
         stage('Checkout'){
             steps{
@@ -70,6 +71,8 @@ pipeline {
                     --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
                     --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
                     --build-arg=BASE_IMAGE=${DOCKER_BASE_IMAGE}:${image_tag} \
+                    --build-arg=MILVUS_GIT_REPO=https://github.com/jaime0815/milvus.git \
+                    --build-arg=MILVUS_GIT_BRANCH=huawei-debug-20.04\
                     --dockerfile "docker/builder/Dockerfile" \
                     --destination=${DOCKER_BUILDER_IMAGE}:${image_tag}
                     """
@@ -77,25 +80,25 @@ pipeline {
                 }
             }
         }
-        // stage('Build & Publish App Image') {
-        //     steps{
-        //         container(name: 'kaniko',shell: '/busybox/sh') {
-        //           script {
-        //             sh 'ls -lah '
-        //             sh """
-        //             executor \
-        //             --cache=true \
-        //             --cache-ttl=24h \
-        //             --context="`pwd`" \
-        //             --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
-        //             --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
-        //             --build-arg=BUILDER_IMAGE=${DOCKER_BUILDER_IMAGE}:${image_tag} \
-        //             --dockerfile "docker/app/Dockerfile" \
-        //             --destination=${DOCKER_APP_IMAGE}:${image_tag}
-        //             """
-        //           }
-        //         }
-        //     }
-        // }
+        stage('Build & Publish App Image') {
+            steps{
+                container(name: 'kaniko',shell: '/busybox/sh') {
+                  script {
+                    sh "echo ${DOCKER_APP_IMAGE}:${image_tag}"
+                    sh """
+                    executor \
+                    --cache=true \
+                    --cache-ttl=24h \
+                    --context="`pwd`" \
+                    --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
+                    --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
+                    --build-arg=BUILDER_IMAGE=${DOCKER_BUILDER_IMAGE}:${image_tag} \
+                    --dockerfile "docker/app/Dockerfile" \
+                    --destination=${DOCKER_APP_IMAGE}:${image_tag}
+                    """
+                  }
+                }
+            }
+        }
     }
 }
