@@ -8,6 +8,10 @@ spec:
     - name: main
       image: harbor-ap1.zilliz.cc/devops/cd-base:20220316-a7c2c5e
       args: ["cat"]
+      resources:
+        requests:
+          cpu: "10"
+          memory: 5Gi
       tty: true
     - name: kaniko
       imagePullPolicy: IfNotPresent
