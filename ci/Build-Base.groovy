@@ -27,7 +27,18 @@ pipeline {
       GIT_REPO="${github}"
    }
 
-   
+    parameters{
+        string(
+            description: 'Repo',
+            name: 'repo',
+            defaultValue: 'https://github.com/jaime0815/milvus.git'
+        )
+        string(
+            description: 'Branch',
+            name: 'branch',
+            defaultValue: 'huawei-debug'
+        )
+    }
     stages {
         stage('Checkout'){
             steps{
@@ -71,8 +82,8 @@ pipeline {
                     --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
                     --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
                     --build-arg=BASE_IMAGE=${DOCKER_BASE_IMAGE}:${image_tag} \
-                    --build-arg=MILVUS_GIT_REPO=https://github.com/jaime0815/milvus.git \
-                    --build-arg=MILVUS_GIT_BRANCH=huawei-debug-20.04\
+                    --build-arg=MILVUS_GIT_REPO=${params.repo} \
+                    --build-arg=MILVUS_GIT_BRANCH=${params.branch}\
                     --dockerfile "docker/builder/Dockerfile" \
                     --destination=${DOCKER_BUILDER_IMAGE}:${image_tag}
                     """
