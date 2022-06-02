@@ -77,25 +77,25 @@ pipeline {
                 }
             }
         }
-        stage('Build & Publish App Image') {
-            steps{
-                container(name: 'kaniko',shell: '/busybox/sh') {
-                  script {
-                    sh 'ls -lah '
-                    sh """
-                    executor \
-                    --cache=true \
-                    --cache-ttl=24h \
-                    --context="`pwd`" \
-                    --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
-                    --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
-                    --build-arg=BUILDER_IMAGE=${DOCKER_BUILDER_IMAGE}:${image_tag} \
-                    --dockerfile "docker/app/Dockerfile" \
-                    --destination=${DOCKER_APP_IMAGE}:${image_tag}
-                    """
-                  }
-                }
-            }
-        }
+        // stage('Build & Publish App Image') {
+        //     steps{
+        //         container(name: 'kaniko',shell: '/busybox/sh') {
+        //           script {
+        //             sh 'ls -lah '
+        //             sh """
+        //             executor \
+        //             --cache=true \
+        //             --cache-ttl=24h \
+        //             --context="`pwd`" \
+        //             --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
+        //             --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
+        //             --build-arg=BUILDER_IMAGE=${DOCKER_BUILDER_IMAGE}:${image_tag} \
+        //             --dockerfile "docker/app/Dockerfile" \
+        //             --destination=${DOCKER_APP_IMAGE}:${image_tag}
+        //             """
+        //           }
+        //         }
+        //     }
+        // }
     }
 }
