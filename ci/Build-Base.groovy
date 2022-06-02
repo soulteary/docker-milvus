@@ -6,10 +6,10 @@ def image_tag=''
 
 
 pipeline {
-   options{
-    disableConcurrentBuilds(abortPrevious: true)
-    // skipDefaultCheckout()
-   }
+  //  options{
+  //   disableConcurrentBuilds(abortPrevious: true)
+  //   // skipDefaultCheckout()
+  //  }
    agent {
         kubernetes {
             label 'ci'
