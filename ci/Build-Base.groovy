@@ -84,6 +84,7 @@ pipeline {
                     --build-arg=BASE_IMAGE=registry.milvus.io/milvus/milvus-base:20220602-b828e22 \
                     --build-arg=MILVUS_GIT_REPO=${params.repo} \
                     --build-arg=MILVUS_GIT_BRANCH=${params.branch}\
+                    --build-arg=MILVUS_GIT_COMMIT=${gitShortCommit} \
                     --dockerfile "docker/builder/Dockerfile" \
                     --destination=${DOCKER_BUILDER_IMAGE}:${image_tag}
                     """
