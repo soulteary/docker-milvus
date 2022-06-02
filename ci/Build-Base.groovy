@@ -20,9 +20,9 @@ pipeline {
         }
    }
    environment{
-      DOCKER_BASE_IMAGE="harbor-ap1.zilliz.cc/milvus/milvus-base"
-      DOCKER_BUILDER_IMAGE="harbor-ap1.zilliz.cc/milvus/milvus-builder"
-      DOCKER_APP_IMAGE="harbor-ap1.zilliz.cc/milvus/milvus-app"
+      DOCKER_BASE_IMAGE="registry.milvus.io/milvus/milvus-base"
+      DOCKER_BUILDER_IMAGE="registry.milvus.io/milvus/milvus-builder"
+      DOCKER_APP_IMAGE="registry.milvus.io/milvus/milvus-app"
       GITHUB_TOKEN_ID="github-token"
       GIT_REPO="${github}"
    }
@@ -50,25 +50,25 @@ pipeline {
                 }
             }
         }
-        stage('Build & Publish Base Image') {
-            steps{
-                container(name: 'kaniko',shell: '/busybox/sh') {
-                  script {
-                    sh 'ls -lah '
-                    sh """
-                    executor \
-                    --context="`pwd`" \
-                    --cache=true \
-                    --cache-ttl=24h \
-                    --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
-                    --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
-                    --dockerfile "docker/base/Dockerfile" \
-                    --destination=${DOCKER_BASE_IMAGE}:${image_tag}
-                    """
-                  }
-                }
-            }
-        }
+        // stage('Build & Publish Base Image') {
+        //     steps{
+        //         container(name: 'kaniko',shell: '/busybox/sh') {
+        //           script {
+        //             sh 'ls -lah '
+        //             sh """
+        //             executor \
+        //             --context="`pwd`" \
+        //             --cache=true \
+        //             --cache-ttl=24h \
+        //             --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
+        //             --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
+        //             --dockerfile "docker/base/Dockerfile" \
+        //             --destination=${DOCKER_BASE_IMAGE}:${image_tag}
+        //             """
+        //           }
+        //         }
+        //     }
+        // }
         stage('Build & Publish Builder Image') {
             steps{
                 container(name: 'kaniko',shell: '/busybox/sh') {
@@ -81,7 +81,7 @@ pipeline {
                     --context="`pwd`" \
                     --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
                     --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
-                    --build-arg=BASE_IMAGE=${DOCKER_BASE_IMAGE}:${image_tag} \
+                    --build-arg=BASE_IMAGE=registry.milvus.io/milvus/milvus-base:20220602-b828e22 \
                     --build-arg=MILVUS_GIT_REPO=${params.repo} \
                     --build-arg=MILVUS_GIT_BRANCH=${params.branch}\
                     --dockerfile "docker/builder/Dockerfile" \

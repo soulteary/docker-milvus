@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - name: main
-      image: harbor-ap1.zilliz.cc/devops/cd-base:20220316-a7c2c5e
+      image: registry.milvus.io/devops/cd-base:20220316-a7c2c5e
       args: ["cat"]
       resources:
         requests:
@@ -15,7 +15,7 @@ spec:
       tty: true
     - name: kaniko
       imagePullPolicy: IfNotPresent
-      image: harbor-ap1.zilliz.cc/devops/kaniko-executor:v1.8.0-debug
+      image: registry.milvus.io/devops/kaniko-executor:v1.8.0-debug
       command:
         - /busybox/cat
       tty: true
@@ -25,7 +25,7 @@ spec:
   volumes:
     - name: kaniko-secret
       secret:
-        secretName: kaniko-secret
+        secretName: registry-milvus-io
         items:
           - key: .dockerconfigjson
             path: config.json
