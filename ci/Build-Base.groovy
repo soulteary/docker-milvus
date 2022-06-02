@@ -21,7 +21,7 @@ pipeline {
    }
    environment{
       DOCKER_BASE_IMAGE="harbor-ap1.zilliz.cc/milvus/milvus-base"
-      DOCKER_BUILD_IMAGE="harbor-ap1.zilliz.cc/milvus/milvus-builder"
+      DOCKER_BUILDER_IMAGE="harbor-ap1.zilliz.cc/milvus/milvus-builder"
       DOCKER_APP_IMAGE="harbor-ap1.zilliz.cc/milvus/milvus-app"
       GITHUB_TOKEN_ID="github-token"
       GIT_REPO="${github}"
@@ -89,7 +89,7 @@ pipeline {
                     --context="`pwd`" \
                     --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
                     --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
-                    --build-arg=BASE_IMAGE=${DOCKER_BUILDER_IMAGE}:${image_tag} \
+                    --build-arg=BUILDER_IMAGE=${DOCKER_BUILDER_IMAGE}:${image_tag} \
                     --dockerfile "docker/app/Dockerfile" \
                     --destination=${DOCKER_APP_IMAGE}:${image_tag}
                     """
