@@ -1,4 +1,7 @@
-FROM soulteary/milvus:base-ubuntu20.04-openblas0.3.9
+# FROM soulteary/milvus:base-ubuntu20.04-openblas0.3.9
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
 LABEL maintainer=soulteary@gmail.com
 
 # build cmake 3.16.3+ from source https://cmake.org

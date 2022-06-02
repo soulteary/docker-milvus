@@ -3,7 +3,7 @@
 def gitShortCommit=''
 def date=''
 def image_tag=''
-def app_name='milvus-base'
+
 
 pipeline {
    options{
@@ -20,10 +20,13 @@ pipeline {
         }
    }
    environment{
-      DOCKER_IMAGE="harbor-ap1.zilliz.cc/milvus/${app_name}"
+      DOCKER_BASE_IMAGE="harbor-ap1.zilliz.cc/milvus/milvus-base"
+      DOCKER_BUILD_IMAGE="harbor-ap1.zilliz.cc/milvus/milvus-builder"
+      DOCKER_APP_IMAGE="harbor-ap1.zilliz.cc/milvus/milvus-app"
       GITHUB_TOKEN_ID="github-token"
       GIT_REPO="${github}"
    }
+
     stages {
         stage('Checkout'){
             steps{
@@ -35,7 +38,7 @@ pipeline {
                 }
             }
         }
-        stage('Build & Publish Image') {
+        stage('Build & Publish Base Image') {
             steps{
                 container(name: 'kaniko',shell: '/busybox/sh') {
                   script {
@@ -43,10 +46,52 @@ pipeline {
                     sh """
                     executor \
                     --context="`pwd`" \
+                    --cache=true \
+                    --cache-ttl=24h \
                     --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
                     --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
                     --dockerfile "docker/base/Dockerfile" \
-                    --destination=${DOCKER_IMAGE}:${image_tag}
+                    --destination=${DOCKER_BASE_IMAGE}:${image_tag}
+                    """
+                  }
+                }
+            }
+        }
+        stage('Build & Publish Builder Image') {
+            steps{
+                container(name: 'kaniko',shell: '/busybox/sh') {
+                  script {
+                    sh 'ls -lah '
+                    sh """
+                    executor \
+                    --cache=true \
+                    --cache-ttl=24h \
+                    --context="`pwd`" \
+                    --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
+                    --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
+                    --build-arg=BASE_IMAGE=${DOCKER_BASE_IMAGE}:${image_tag} \
+                    --dockerfile "docker/builder/Dockerfile" \
+                    --destination=${DOCKER_BUILDER_IMAGE}:${image_tag}
+                    """
+                  }
+                }
+            }
+        }
+        stage('Build & Publish App Image') {
+            steps{
+                container(name: 'kaniko',shell: '/busybox/sh') {
+                  script {
+                    sh 'ls -lah '
+                    sh """
+                    executor \
+                    --cache=true \
+                    --cache-ttl=24h \
+                    --context="`pwd`" \
+                    --registry-mirror="nexus-nexus-repository-manager-docker-5000.nexus:5000"\
+                    --insecure-registry="nexus-nexus-repository-manager-docker-5000.nexus:5000" \
+                    --build-arg=BASE_IMAGE=${DOCKER_BUILDER_IMAGE}:${image_tag} \
+                    --dockerfile "docker/app/Dockerfile" \
+                    --destination=${DOCKER_APP_IMAGE}:${image_tag}
                     """
                   }
                 }
