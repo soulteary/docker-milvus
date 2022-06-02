@@ -12,7 +12,7 @@ pipeline {
   //  }
    agent {
         kubernetes {
-            label 'ci'
+            label 'ci-registry'
             inheritFrom 'default'
             defaultContainer 'main'
             yamlFile 'ci/pod/ci.yaml'
