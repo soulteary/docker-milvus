@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ci-registry
+  name: ci-registry-a
   namespace: jenkins
 spec:
   containers:
@@ -10,7 +10,7 @@ spec:
       args: ["cat"]
       resources:
         requests:
-          cpu: "10"
+          cpu: "5"
           memory: 5Gi
       tty: true
     - name: kaniko
