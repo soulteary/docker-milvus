@@ -1,4 +1,4 @@
-FROM soulteary/milvus:builder-ubuntu20.04-openblas0.3.9 AS builder
+FROM soulteary/milvus:builder-ubuntu20.04-openblas0.3.9-golang1.16.9 AS builder
 
 FROM ubuntu:20.04
 LABEL maintainer=soulteary@gmail.com
