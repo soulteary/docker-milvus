@@ -1,10 +1,9 @@
 name: Base Image (Ubuntu 20.04 + OpenBLAS 0.3.9)
-
 on:
   workflow_dispatch:
   push:
     branches:
-      - 'main-pause'
+      - 'main'
     tags:
       - 'base*'
     paths:
@@ -12,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       -
         name: Checkout
@@ -39,4 +38,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: soulteary/milvus-base:ubuntu20.04-openblas0.3.9
+          tags: soulteary/milvus:base-ubuntu20.04-openblas0.3.9
