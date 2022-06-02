@@ -22,12 +22,13 @@ RUN ln -s /usr/lib/libopenblas-r0.3.9.so /usr/lib/libopenblas.so.0 && \
 # get milvus build results and dependencies from the milvus tool image
 COPY --from=builder /milvus/bin/ /milvus/bin/
 COPY --from=builder /milvus/configs/*.yaml /milvus/configs/
-COPY --from=builder /milvus/internal/core/output/lib/libmilvus_indexbuilder.so /milvus/lib/
-COPY --from=builder /milvus/internal/core/output/lib/libmilvus_segcore.so /milvus/lib/
-COPY --from=builder /milvus/internal/core/output/lib/libmilvus_common.so /milvus/lib/
-COPY --from=builder /milvus/internal/core/output/lib/libmilvus_index.so /milvus/lib/
-COPY --from=builder /milvus/internal/core/output/lib/libknowhere.so /milvus/lib/
-COPY --from=builder /milvus/internal/core/output/lib/libmarisa.so.0 /milvus/lib/
+COPY --from=builder /milvus/internal/core/output/lib/ /milvus/lib/
+# COPY --from=builder /milvus/internal/core/output/lib/libmilvus_indexbuilder.so /milvus/lib/
+# COPY --from=builder /milvus/internal/core/output/lib/libmilvus_segcore.so /milvus/lib/
+# COPY --from=builder /milvus/internal/core/output/lib/libmilvus_common.so /milvus/lib/
+# COPY --from=builder /milvus/internal/core/output/lib/libmilvus_index.so /milvus/lib/
+# COPY --from=builder /milvus/internal/core/output/lib/libknowhere.so /milvus/lib/
+# COPY --from=builder /milvus/internal/core/output/lib/libmarisa.so.0 /milvus/lib/
 
 # set environment variables to ensure that the program can run normally
 ENV PATH=/milvus/bin:$PATH
