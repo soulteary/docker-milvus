@@ -60,4 +60,4 @@ RUN if [ "$MILVUS_GIT_CLONE_DEPTH" = "" ];then \
 
 
 WORKDIR /milvus
-RUN source /root/.gvm/scripts/gvm && make milvus
+RUN source /root/.gvm/scripts/gvm && make milvus mode=Debug
